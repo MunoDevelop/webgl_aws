@@ -1,0 +1,9 @@
+.ToonKagura{
+    width: 50vw;
+    height: 50vh;
+    position: relative;
+    left: 20%;
+    border: 2px solid white;
+    padding: 2px;
+
+}

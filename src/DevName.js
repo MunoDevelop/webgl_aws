@@ -2,9 +2,14 @@ import React from 'react';
 import * as THREE from 'three';
 import {FontLoader} from "three/examples/jsm/loaders/FontLoader";
 import {TextGeometry} from "three/examples/jsm/geometries/TextGeometry";
-import './DevName.css';
+import './ToonKagura.css';
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 import {Reflector} from "three/examples/jsm/objects/Reflector";
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+import {UnrealBloomPass} from "three/examples/jsm/postprocessing/UnrealBloomPass";
+import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass";
+//import {GlitchPass} from "three/examples/jsm/postprocessing/GlitchPass";
+
 
 class DevName extends React.Component {
     constructor(props) {
@@ -26,6 +31,10 @@ class DevName extends React.Component {
         //camera.lookAt(cameraTarget);
         const renderer = new THREE.WebGLRenderer({antialias: true});
         renderer.setSize(width, height);
+        this.renderer = renderer;
+
+
+
         //background
         scene.background = new THREE.CubeTextureLoader()
             .setPath( '' )
@@ -36,7 +45,7 @@ class DevName extends React.Component {
                 'negY.png',
                 'posZ.png',
                 'negZ.png'
-            ] )
+            ] );
 
         // LIGHTS
         // const dirLight = new THREE.DirectionalLight( 0xffffff, 0 );
@@ -140,6 +149,22 @@ class DevName extends React.Component {
         controls.enableDamping = true;
         controls.update();
 
+        //postProcess
+        const composer = new EffectComposer(renderer);
+        this.composer = composer;
+        const renderPass = new RenderPass( scene, camera );
+        //const tempV2 = new THREE.Vector2(64,64);
+        const bloomPass =  new UnrealBloomPass(undefined,0.01,0);
+
+        //const glitchPass = new GlitchPass();
+        //renderPass.renderToScreen = true;
+        //bloomPass.renderToScreen = true;
+        composer.addPass( renderPass );
+        //composer.addPass(glitchPass);
+        composer.addPass( bloomPass );
+
+
+
         this.animate();
         //console.log("did happen")
     };
@@ -157,10 +182,10 @@ class DevName extends React.Component {
         this.tinkebellPosZ = 80 * Math.sin(this.tinkebellAng);
         this.tinkerbell.position.set(this.tinkebellPosX,40,this.tinkebellPosZ);
 
+        //this.renderer.render(this.scene,this.camera);
 
 
-
-        this.renderer.render(this.scene, this.camera);
+        this.composer.render(this.scene, this.camera);
     }
 
 

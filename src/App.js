@@ -4,7 +4,7 @@ import {Component} from "react";
 //import {CardList} from "./Components/card-list/card-list.component";
 //import {SearchBox} from "./Components/search-box/search-box.component";
 //import * as THREE from "three";
-import DrawBlock from "./DrawBlock";
+import ToonKagura from "./ToonKagura";
 import DevName from "./DevName";
 
 class App extends Component{
@@ -44,7 +44,7 @@ class App extends Component{
         <div className="App">
             <DevName></DevName>
 
-            <DrawBlock></DrawBlock>
+            <ToonKagura></ToonKagura>
         </div>
     );
   }
