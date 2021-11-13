@@ -90,18 +90,12 @@ class ToonKagura extends React.Component {
         // loadFbx part
         //var kaguraObj;
         const loader = new FBXLoader();
-        loader.load( 'UnityCHanKAGURA.fbx', function ( obj ) {
+        loader.load( './UnityCHanKAGURA.fbx', function ( obj ) {
             scene.add( obj );
             kaguraObj = obj;
             elementInstance.loadAni();
 
         } );
-
-
-
-
-
-
 
         this.element.appendChild(renderer.domElement);
         this.scene = scene;
@@ -146,7 +140,7 @@ class ToonKagura extends React.Component {
         //load anim and play part
 
         const animLoader = new FBXLoader();
-        animLoader.load( 'ani.fbx', function ( obj ) {
+        animLoader.load( './ani.fbx', function ( obj ) {
             kaguraObj.animations = obj.animations;
             myConsole.log(kaguraObj.animations.length);
             animMixer = new THREE.AnimationMixer( kaguraObj );
