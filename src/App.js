@@ -7,6 +7,7 @@ import {Component} from "react";
 import ToonKagura from "./ToonKagura";
 import DevName from "./DevName";
 
+
 class App extends Component{
     constructor() {
         super();
@@ -16,7 +17,16 @@ class App extends Component{
         //    searchField:''
         }
     //this.handleChange = this.handleChange.bind(this);
+        const jsKey = "fce35aecafa2ad021c79df564c9c5c52";
 
+        // SDK는 한 번만 초기화해야 한다.
+        // 중복되는 초기화를 막기 위해 isInitialized()로 SDK 초기화 여부를 판단한다.
+        if (!window.Kakao.isInitialized()) {
+            // JavaScript key를 인자로 주고 SDK 초기화
+            window.Kakao.init(jsKey);
+            // SDK 초기화 여부를 확인하자.
+            console.log(window.Kakao.isInitialized());
+        }
     }
 
     handleChange = (e) => {
@@ -29,6 +39,27 @@ class App extends Component{
         //     .then(users=>this.setState({monsters:users}))
     }
 
+    kakaoLogin(){
+        window.Kakao.Auth.login({
+            success: function (response) {
+                window.Kakao.API.request({
+                    url: '/v2/user/me',
+                    success: function (response) {
+                        console.log(response)
+                    },
+                    fail: function (error) {
+                        console.log(error)
+                    },
+                })
+            },
+            fail: function (error) {
+                console.log(error)
+            },
+        })
+    }
+    kakaoLogOut(){
+
+    }
 
     render(){
         // const{ monsters,searchField} = this.state;
@@ -40,11 +71,23 @@ class App extends Component{
             </CardList>
 * */
 
+
     return (
         <div className="App">
             <DevName></DevName>
-
             <ToonKagura></ToonKagura>
+            <ul>
+                <button onClick={this.kakaoLogin}>
+                    <a href="javascript:void(0)">
+                        <span>카카오 로그인</span>
+                    </a>
+                </button>
+                <button onClick={this.kakaoLogOut}>
+                    <a href="javascript:void(0)">
+                        <span>카카오 로그아웃</span>
+                    </a>
+                </button>
+            </ul>
         </div>
     );
   }
