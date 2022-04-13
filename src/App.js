@@ -59,6 +59,19 @@ class App extends Component{
     }
     kakaoLogOut(){
 
+            if (window.Kakao.Auth.getAccessToken()) {
+                window.Kakao.API.request({
+                    url: '/v1/user/unlink',
+                    success: function (response) {
+                        console.log(response)
+                    },
+                    fail: function (error) {
+                        console.log(error)
+                    },
+                })
+                window.Kakao.Auth.setAccessToken(undefined)
+            }
+
     }
 
     render(){
