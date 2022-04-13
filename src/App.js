@@ -17,7 +17,7 @@ class App extends Component{
         //    searchField:''
         }
     //this.handleChange = this.handleChange.bind(this);
-        const jsKey = "fce35aecafa2ad021c79df564c9c5c52";
+        const jsKey = "f69b9018b87e6802464a4c8c3dd936da";
 
         // SDK는 한 번만 초기화해야 한다.
         // 중복되는 초기화를 막기 위해 isInitialized()로 SDK 초기화 여부를 판단한다.
